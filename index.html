@@ -8,213 +8,245 @@
     * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
     body { background:#050005; color:white; }
     header { padding:25px; text-align:center; background:linear-gradient(90deg,#ff1493,#6a00ff,#000); }
-    header h1 { font-size:42px; }
+    header h1 { font-size:42px; display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; }
     nav { margin-top:15px; }
     nav a { color:white; margin:0 10px; text-decoration:none; font-weight:bold; }
-
     .hero { padding:50px 20px; text-align:center; background:#0d0015; }
+    .hero img { max-width:220px; width:100%; border-radius:16px; margin-bottom:18px; display:none; }
     .hero h2 { color:#ff4fd8; font-size:32px; }
     .hero p { margin-top:10px; color:#ddd; }
-
-    .produtos {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:20px;
-      padding:30px;
-    }
-
-    .card {
-      background:#12001f;
-      border:1px solid #ff1493;
-      border-radius:15px;
-      padding:15px;
-      text-align:center;
-      box-shadow:0 0 15px #6a00ff;
-    }
-
-    .foto {
-      height:160px;
-      background:#222;
-      border:2px dashed #ff4fd8;
-      border-radius:12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#aaa;
-      margin-bottom:15px;
-    }
-
-    .card input {
-      width:100%;
-      padding:10px;
-      margin:6px 0;
-      border-radius:8px;
-      border:none;
-      text-align:center;
-    }
-
-    button {
-      width:100%;
-      padding:12px;
-      margin-top:10px;
-      border:none;
-      border-radius:10px;
-      background:linear-gradient(90deg,#6a00ff,#ff1493);
-      color:white;
-      font-weight:bold;
-      cursor:pointer;
-    }
-
+    .produtos { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; padding:30px; }
+    .card { background:#12001f; border:1px solid #ff1493; border-radius:15px; padding:15px; text-align:center; box-shadow:0 0 15px #6a00ff; }
+    .foto { height:160px; background:#222; border:2px dashed #ff4fd8; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#aaa; margin-bottom:15px; overflow:hidden; }
+    .foto img { width:100%; height:100%; object-fit:cover; }
+    .card h3 { margin:10px 0; }
+    .preco { margin-bottom:10px; color:#ff4fd8; font-weight:bold; }
+    button { width:100%; padding:12px; margin-top:10px; border:none; border-radius:10px; background:linear-gradient(90deg,#6a00ff,#ff1493); color:white; font-weight:bold; cursor:pointer; }
     button:hover { opacity:.85; }
-
-    .info {
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:20px;
-      padding:30px;
-      background:#090010;
-    }
-
-    .info div {
-      background:#160025;
-      padding:20px;
-      border-radius:12px;
-      border:1px solid #6a00ff;
-    }
-
-    .admin {
-      padding:30px;
-      background:#100018;
-      text-align:center;
-    }
-
-    .admin-box {
-      max-width:350px;
-      margin:auto;
-      background:#1a0029;
-      padding:20px;
-      border-radius:15px;
-      border:1px solid #ff1493;
-    }
-
-    .admin-box input {
-      width:100%;
-      padding:12px;
-      margin:8px 0;
-      border-radius:8px;
-      border:none;
-    }
-
-    footer {
-      text-align:center;
-      padding:20px;
-      background:#000;
-      color:#aaa;
-    }
-
-    .zap {
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      background:#25d366;
-      color:white;
-      padding:15px 20px;
-      border-radius:50px;
-      text-decoration:none;
-      font-weight:bold;
-      box-shadow:0 0 15px #25d366;
-    }
+    .info { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:30px; background:#090010; }
+    .info div { background:#160025; padding:20px; border-radius:12px; border:1px solid #6a00ff; }
+    .admin { padding:30px; background:#100018; text-align:center; }
+    .admin-box, .painel { max-width:900px; margin:20px auto; background:#1a0029; padding:20px; border-radius:15px; border:1px solid #ff1493; }
+    .admin input, .admin textarea { width:100%; padding:12px; margin:8px 0; border-radius:8px; border:none; }
+    .linha { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .item-admin { border:1px solid #6a00ff; border-radius:12px; padding:15px; margin-top:15px; }
+    .remover { background:#b00020; }
+    .zap { position:fixed; right:20px; bottom:20px; background:#25d366; color:white; padding:15px 20px; border-radius:50px; text-decoration:none; font-weight:bold; box-shadow:0 0 15px #25d366; }
+    footer { text-align:center; padding:20px; background:#000; color:#aaa; }
+    @media(max-width:700px){ .linha{grid-template-columns:1fr;} header h1{font-size:32px;} }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>🎮 Braga Games</h1>
-    <nav>
-      <a href="#produtos">Jogos</a>
-      <a href="#admin">Admin</a>
-      <a href="#suporte">Suporte</a>
-    </nav>
-  </header>
+<header>
+  <h1>🎮 <span id="tituloSite">Braga Games</span></h1>
+  <nav>
+    <a href="#produtos">Jogos</a>
+    <a href="#admin">Admin</a>
+    <a href="#suporte">Suporte</a>
+  </nav>
+</header>
 
-  <section class="hero">
-    <h2>Loja Virtual de Games</h2>
-    <p>Compre seus jogos com segurança e receba atendimento pelo WhatsApp.</p>
-  </section>
+<section class="hero">
+  <img id="imagemSubtitulo" alt="Imagem do subtítulo">
+  <h2 id="subtituloSite">Loja Virtual de Games</h2>
+  <p id="descricaoSite">Compre seus jogos com segurança e receba atendimento pelo WhatsApp.</p>
+</section>
 
-  <section id="produtos" class="produtos">
-    <div class="card">
-      <div class="foto">Coloque a foto aqui</div>
-      <input value="GTA San Andreas" />
-      <input value="R$ 25,00" />
-      <button onclick="comprar('GTA San Andreas')">Comprar pelo WhatsApp</button>
+<section id="produtos" class="produtos"></section>
+
+<section class="info">
+  <div>🔒 Compra segura</div>
+  <div>🎧 Suporte 24 horas</div>
+  <div>⚡ Entrega rápida</div>
+</section>
+
+<section id="admin" class="admin">
+  <h2>Área do Administrador</h2>
+
+  <div id="loginBox" class="admin-box">
+    <input id="usuario" placeholder="Usuário">
+    <input id="senha" type="password" placeholder="Senha">
+    <button onclick="loginAdmin()">Entrar</button>
+    <p id="msgAdmin"></p>
+  </div>
+
+  <div id="painelAdmin" class="painel" style="display:none;">
+    <h2>Painel de edição</h2>
+
+    <h3>Editar site</h3>
+    <input id="editTitulo" placeholder="Título do site">
+    <input id="editSubtitulo" placeholder="Subtítulo">
+    <textarea id="editDescricao" placeholder="Descrição"></textarea>
+    <input id="editImagemSubtitulo" placeholder="Link da imagem do subtítulo">
+    <button onclick="salvarSite()">Salvar alterações do site</button>
+
+    <h3 style="margin-top:25px;">Adicionar novo jogo</h3>
+    <div class="linha">
+      <input id="novoNome" placeholder="Nome do jogo">
+      <input id="novoPreco" placeholder="Preço">
     </div>
+    <input id="novaImagem" placeholder="Link da imagem do jogo">
+    <button onclick="adicionarCard()">Adicionar card</button>
 
-    <div class="card">
-      <div class="foto">Coloque a foto aqui</div>
-      <input value="Need For Speed" />
-      <input value="R$ 30,00" />
-      <button onclick="comprar('Need For Speed')">Comprar pelo WhatsApp</button>
-    </div>
+    <h3 style="margin-top:25px;">Editar cards</h3>
+    <div id="listaAdmin"></div>
+  </div>
+</section>
 
-    <div class="card">
-      <div class="foto">Coloque a foto aqui</div>
-      <input value="Minecraft" />
-      <input value="R$ 35,00" />
-      <button onclick="comprar('Minecraft')">Comprar pelo WhatsApp</button>
-    </div>
+<footer id="suporte">
+  <p>Braga Games © 2026</p>
+  <p>Suporte pelo WhatsApp</p>
+</footer>
 
-    <div class="card">
-      <div class="foto">Coloque a foto aqui</div>
-      <input value="PES 2013" />
-      <input value="R$ 20,00" />
-      <button onclick="comprar('PES 2013')">Comprar pelo WhatsApp</button>
-    </div>
-  </section>
+<a class="zap" href="https://wa.me/553193591048" target="_blank">💬 Suporte</a>
 
-  <section class="info">
-    <div>🔒 Compra segura</div>
-    <div>🎧 Suporte 24 horas</div>
-    <div>⚡ Entrega rápida</div>
-  </section>
+<script>
+  const adminUser = "br22ag35agg99";
+  const adminPass = "br22ag35agg99";
+  const numeroWhats = "553193591048";
 
-  <section id="admin" class="admin">
-    <h2>Área do Administrador</h2>
-    <div class="admin-box">
-      <input id="usuario" placeholder="Usuário" />
-      <input id="senha" type="password" placeholder="Senha" />
-      <button onclick="loginAdmin()">Entrar</button>
-      <p id="msgAdmin"></p>
-    </div>
-  </section>
+  let site = JSON.parse(localStorage.getItem("siteBraga")) || {
+    titulo: "Braga Games",
+    subtitulo: "Loja Virtual de Games",
+    descricao: "Compre seus jogos com segurança e receba atendimento pelo WhatsApp.",
+    imagemSubtitulo: ""
+  };
 
-  <footer id="suporte">
-    <p>Braga Games © 2026</p>
-    <p>Suporte pelo WhatsApp</p>
-  </footer>
+  let jogos = JSON.parse(localStorage.getItem("jogosBraga")) || [
+    { nome:"GTA San Andreas", preco:"R$ 25,00", imagem:"" },
+    { nome:"GTA 5", preco:"R$ 50,00", imagem:"" },
+    { nome:"Minecraft", preco:"R$ 35,00", imagem:"" },
+    { nome:"PES 2013", preco:"R$ 20,00", imagem:"" }
+  ];
 
-  <a class="zap" href="https://wa.me/553193591048" target="_blank">💬 Suporte</a>
+  function salvarDados() {
+    localStorage.setItem("siteBraga", JSON.stringify(site));
+    localStorage.setItem("jogosBraga", JSON.stringify(jogos));
+  }
 
-  <script>
-    function comprar(jogo) {
-      const numero = "553193591048";
-      const mensagem = `Olá Braga Games, comprei o jogo ${jogo} usando seu site. Quero resgatá-lo.`;
-      const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-      window.open(link, "_blank");
+  function renderizarSite() {
+    document.getElementById("tituloSite").innerText = site.titulo;
+    document.title = site.titulo;
+    document.getElementById("subtituloSite").innerText = site.subtitulo;
+    document.getElementById("descricaoSite").innerText = site.descricao;
+
+    const imgSub = document.getElementById("imagemSubtitulo");
+    if (site.imagemSubtitulo) {
+      imgSub.src = site.imagemSubtitulo;
+      imgSub.style.display = "inline-block";
+    } else {
+      imgSub.style.display = "none";
     }
 
-    function loginAdmin() {
-      const usuario = document.getElementById("usuario").value;
-      const senha = document.getElementById("senha").value;
+    const produtos = document.getElementById("produtos");
+    produtos.innerHTML = "";
 
-      if (usuario === "br22ag35agg99" && senha === "br22ag35agg99") {
-        document.getElementById("msgAdmin").innerHTML = "✅ Login realizado com sucesso!";
-      } else {
-        document.getElementById("msgAdmin").innerHTML = "❌ Login inválido!";
-      }
+    jogos.forEach((jogo) => {
+      produtos.innerHTML += `
+        <div class="card">
+          <div class="foto">
+            ${jogo.imagem ? `<img src="${jogo.imagem}" alt="${jogo.nome}">` : "Coloque a foto pelo admin"}
+          </div>
+          <h3>${jogo.nome}</h3>
+          <p class="preco">${jogo.preco}</p>
+          <button onclick="comprar('${jogo.nome.replace(/'/g, "\\'")}')">Comprar pelo WhatsApp</button>
+        </div>
+      `;
+    });
+  }
+
+  function renderizarAdmin() {
+    document.getElementById("editTitulo").value = site.titulo;
+    document.getElementById("editSubtitulo").value = site.subtitulo;
+    document.getElementById("editDescricao").value = site.descricao;
+    document.getElementById("editImagemSubtitulo").value = site.imagemSubtitulo;
+
+    const lista = document.getElementById("listaAdmin");
+    lista.innerHTML = "";
+
+    jogos.forEach((jogo, i) => {
+      lista.innerHTML += `
+        <div class="item-admin">
+          <input id="nome${i}" value="${jogo.nome}" placeholder="Nome">
+          <input id="preco${i}" value="${jogo.preco}" placeholder="Preço">
+          <input id="imagem${i}" value="${jogo.imagem}" placeholder="Link da imagem">
+          <button onclick="salvarCard(${i})">Salvar card</button>
+          <button class="remover" onclick="removerCard(${i})">Remover card</button>
+        </div>
+      `;
+    });
+  }
+
+  function comprar(jogo) {
+    const mensagem = `Olá Braga Games, comprei o jogo ${jogo} usando seu site. Quero resgatá-lo.`;
+    window.open(`https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`, "_blank");
+  }
+
+  function loginAdmin() {
+    const usuario = document.getElementById("usuario").value;
+    const senha = document.getElementById("senha").value;
+
+    if (usuario === adminUser && senha === adminPass) {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("painelAdmin").style.display = "block";
+      renderizarAdmin();
+    } else {
+      document.getElementById("msgAdmin").innerText = "Login inválido!";
     }
-  </script>
+  }
+
+  function salvarSite() {
+    site.titulo = document.getElementById("editTitulo").value;
+    site.subtitulo = document.getElementById("editSubtitulo").value;
+    site.descricao = document.getElementById("editDescricao").value;
+    site.imagemSubtitulo = document.getElementById("editImagemSubtitulo").value;
+    salvarDados();
+    renderizarSite();
+    alert("Site salvo!");
+  }
+
+  function adicionarCard() {
+    const nome = document.getElementById("novoNome").value;
+    const preco = document.getElementById("novoPreco").value;
+    const imagem = document.getElementById("novaImagem").value;
+
+    if (!nome || !preco) {
+      alert("Coloque nome e preço.");
+      return;
+    }
+
+    jogos.push({ nome, preco, imagem });
+    salvarDados();
+    renderizarSite();
+    renderizarAdmin();
+
+    document.getElementById("novoNome").value = "";
+    document.getElementById("novoPreco").value = "";
+    document.getElementById("novaImagem").value = "";
+  }
+
+  function salvarCard(i) {
+    jogos[i].nome = document.getElementById("nome" + i).value;
+    jogos[i].preco = document.getElementById("preco" + i).value;
+    jogos[i].imagem = document.getElementById("imagem" + i).value;
+    salvarDados();
+    renderizarSite();
+    renderizarAdmin();
+    alert("Card salvo!");
+  }
+
+  function removerCard(i) {
+    if (confirm("Remover esse card?")) {
+      jogos.splice(i, 1);
+      salvarDados();
+      renderizarSite();
+      renderizarAdmin();
+    }
+  }
+
+  renderizarSite();
+</script>
 
 </body>
 </html>
